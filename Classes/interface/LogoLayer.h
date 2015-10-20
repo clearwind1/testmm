@@ -15,7 +15,7 @@
 
 USING_NS_CC;
 
-const int TotalResfile = 10;         //加载资源总数
+const int TotalResfile = 11;         //加载资源总数
 
 class LogoLayer : public Layer
 {

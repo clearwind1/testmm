@@ -95,14 +95,41 @@ void GameScene::showGameBg()
 {
     auto winsize = GameInfo::getInstance()->getGameDesignSize();
     
-    auto gamebgsprite = Sprite::create("gamebg.png");
+    int bgid = rand()%3;
+    char buff[32];
+    sprintf(buff, "gamebg%d.png",bgid);
+    auto gamebgsprite = Sprite::create(buff);
     gamebgsprite->setPosition(Vec2(winsize.width*0.5,winsize.height*0.5));
     this->addChild(gamebgsprite,1);
     
+    //添加知种背景小物件
+    switch (bgid) {
+        case 0:
+            
+            break;
+        case 1:
+        {
+            auto swaction = GameInfo::getInstance()->createAnitmation("sw", 32, -1, 0.05);
+            auto swsp = Sprite::create();
+            this->addChild(swsp,1);
+            swsp->runAction(swaction);
+            
+            auto coverbgsprite = Sprite::create("bgcover.png");
+            coverbgsprite->setPosition(Vec2(winsize.width*0.5,winsize.height*0.5));
+            this->addChild(coverbgsprite,1);
+        }
+            break;
+        case 2:
+            break;
+            
+        default:
+            break;
+    }
+    
     //炮台
-    auto bottom = Sprite::createWithSpriteFrameName("bottom.png");
-    GameInfo::getInstance()->spriteSetPosition(NULL, bottom, winsize.width*0.5, winsize.height*0.5);
-    this->addChild(bottom,3);
+    m_pbottom = Sprite::createWithSpriteFrameName("bottom.png");
+    GameInfo::getInstance()->spriteSetPosition(NULL, m_pbottom, winsize.width*0.5, winsize.height*0.5);
+    this->addChild(m_pbottom,3);
     
     m_pshoottable = Sprite::createWithSpriteFrameName("shoottable.png");
     m_pshoottable->setAnchorPoint(Vec2(0.4,0.5));
@@ -160,8 +187,12 @@ void GameScene::initGame()
     
     RoleLayer::getInstance()->pauseRole();
     
+    int bgmid = rand()%27;
+    char buff[32];
+    sprintf(buff, "bgm%d.mp3",bgmid);
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(buff,true);
     
-    SimpleAudioEngine::getInstance()->playBackgroundMusic("bgm15.mp3",true);
+    m_pbottom->runAction(RepeatForever::create(RotateBy::create(0.5, 0.1)));
     
 }
 
@@ -172,8 +203,16 @@ void GameScene::downTimeEvent(float dt)
    // CCLOG("curtime======%d",curtime);
     
     curtime--;
+    
+    if(curtime == 5)
+    {
+        SimpleAudioEngine::getInstance()->playBackgroundMusic("time.mp3",true);
+    }
+    
     if(curtime < 0)
     {
+        m_pbottom->stopAllActions();
+        SimpleAudioEngine::getInstance()->stopBackgroundMusic();
         this->unschedule(schedule_selector(GameScene::downTimeEvent));
 #if GAMEDEBUG
        
@@ -219,6 +258,11 @@ void GameScene::runlight()
     //m_pshotlight->runAction(m_prunlightaction);
     
     RoleLayer::getInstance()->setIsruning(true);
+    
+    int bgmid = rand()%2;
+    char buff[32];
+    sprintf(buff, "run%d.mp3",bgmid);
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(buff,true);
     
     this->schedule(schedule_selector(GameScene::runupdate), 0.01);
 }
@@ -275,6 +319,9 @@ void GameScene::runupdate(float dt)
         RoleLayer::getInstance()->setCover(true);
         BonusLayer::getInstance()->showBonus(0);
         RoleLayer::getInstance()->resumeRole(GameData::getInstance()->getprizeid());
+        
+        //播放中奖音效
+        GameInfo::getInstance()->playEffect(GameData::getInstance()->getprizeid());
         
         if(!m_bshoutdata)
             this->scheduleOnce(schedule_selector(GameScene::endgame), 3);

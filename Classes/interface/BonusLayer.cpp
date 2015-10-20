@@ -93,6 +93,9 @@ void BonusLayer::update(float dt)
     GameRecords::getInstance()->setvisiable(false);
     RoleLayer::getInstance()->setCover(true);
     
+    //播放中奖音效
+    GameInfo::getInstance()->playEffect(GameData::getInstance()->getprizeid());
+    
     showBonus(0);
     RoleLayer::getInstance()->resumeRole(GameData::getInstance()->getprizeid());
     

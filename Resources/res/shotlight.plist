@@ -495,7 +495,7 @@
             <key>size</key>
             <string>{2048,4096}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6baf160a45ae7133d691c0b0ee6fbbb7:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:b6204691a30249687c3209eed729bba4:1/1$</string>
             <key>textureFileName</key>
             <string>shotlight.pvr.ccz</string>
         </dict>

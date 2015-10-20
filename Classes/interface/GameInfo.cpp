@@ -174,6 +174,18 @@ Sprite* GameInfo::createRect(Rect rect,float x,float y)
     return m_prect;
 }
 
+void GameInfo::playEffect(int prizeID)
+{
+ 
+    //自行改变所对应音效名
+    const char* effName[28] = {"bengbeng.mp3","guangtouqiang.mp3","huli.mp3","jiji.mp3","tutu.mp3","xiongda.mp3","xionger.mp3",
+                                "bengbeng.mp3","guangtouqiang.mp3","huli.mp3","jiji.mp3","tutu.mp3","xiongda.mp3","xionger.mp3",
+                                "bengbeng.mp3","guangtouqiang.mp3","huli.mp3","jiji.mp3","tutu.mp3","xiongda.mp3","xionger.mp3",
+                                "bengbeng.mp3","guangtouqiang.mp3","huli.mp3","jiji.mp3","tutu.mp3","xiongda.mp3","xionger.mp3"};
+    
+    SimpleAudioEngine::getInstance()->playEffect(effName[prizeID]);
+}
+
 
 
 

@@ -116,6 +116,7 @@ void LogoLayer::initreloadname()
     reloadPvrPlists[7] = "prizeowl.";
     reloadPvrPlists[8] = "prizemonkey.";
     reloadPvrPlists[9] = "shotlight.";
+    reloadPvrPlists[10] = "sweffect.";
 }
 void LogoLayer::loadingtexture()
 {

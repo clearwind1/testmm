@@ -11,6 +11,9 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -21,7 +24,7 @@ USING_NS_CC;
 //游戏是否为接收事件模式，0为否，1为是
 #define GAMEEventMODE       1
 
-const int STARTDOWNTIME = 2;
+const int STARTDOWNTIME = 10;
 const int MAXROLE       = 28;
 
 class GameInfo : public Layer
@@ -50,6 +53,10 @@ public:
     
     //判断点在直线上
     bool isPointInLine(Point soildP,float linelen,float angle,Point judeP,float deta = 0.25);
+    
+    //播放中奖音效
+    void playEffect(int prizeID);
+    
     
 private:
     

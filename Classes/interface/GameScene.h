@@ -65,6 +65,7 @@ public:
     
 private:
     
+    Sprite* m_pbottom;
     Sprite* m_pshoottable;          //炮台
     Sprite* m_pshotlight;           //炮台发射光柱
     //Sprite* m_prect;
